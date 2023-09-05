@@ -1,5 +1,10 @@
 # This file allows packrat (used by rsconnect during deployment) to pick up dependencies.
+library(checkmate)
 library(echarts4r)
+library(mockery)
+library(purrr)
 library(R6)
 library(rhino)
+library(tarchetypes)
 library(targets)
+library(tibble)

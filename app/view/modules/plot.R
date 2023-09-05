@@ -2,26 +2,37 @@ box::use(
   shiny[
     NS,
     moduleServer,
-    plotOutput,
-    renderPlot,
-  ]
+    tagList,
+    selectInput,
+  ],
+  dplyr[select],
+  rlang[`%||%`],
 )
 
 box::use(
-  app/view/plotting/scatterplot[scatterplot],
+  app/view/plotting/scatterplot,
 )
 
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  plotOutput(ns("plot"))
+  tagList(
+    selectInput(
+      inputId = ns("variable"),
+      label = "Select value variable",
+      choices = c("y", "z")
+    ),
+    scatterplot$output(ns("plot"))
+  )
 }
 
 #' @export
 server <- function(id, data) {
   moduleServer(id, function(input, output, session) {
-    output$plot <- renderPlot({
-      scatterplot(data)
+    output$plot <- scatterplot$render({
+      data |>
+        select(x, value = !!input$variable %||% "y") |>
+        scatterplot$plot()
     })
   })
 }

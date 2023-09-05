@@ -3,19 +3,25 @@ box::use(
     bootstrapPage,
     moduleServer,
     NS,
+    fluidRow,
+    column,
   ],
 )
 
 box::use(
   app/logic/database,
   app/view/modules/plot,
+  app/view/modules/table,
 )
 
 #' @export
 ui <- function(id) {
   ns <- NS(id)
   bootstrapPage(
-    plot$ui(ns("plot"))
+    fluidRow(
+      column(6, table$ui(ns("table"))),
+      column(6, plot$ui(ns("plot")))
+    )
   )
 }
 
@@ -23,6 +29,8 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     db <- database$new()
-    plot$server("plot", db$get_data())
+    data <- db$get_data()
+    table$server("table", data)
+    plot$server("plot", data)
   })
 }
