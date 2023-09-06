@@ -19,7 +19,7 @@ describe("table", {
       )
     )
 
-    # Act & Assert
+    # Act, Assert
     test_cases$assert_render_table(args)
   })
 })

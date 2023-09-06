@@ -25,7 +25,7 @@ describe("plot", {
       )
     )
 
-    # Act & Assert
+    # Act, Assert
     test_cases$assert_render_plot(args)
   })
 

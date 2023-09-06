@@ -5,7 +5,7 @@ box::use(
   ],
 )
 
-Database <- R6Class(
+Database <- R6Class( #nolint object_name_linter
   classname = "Database",
   public = list(
     get_data = function() {
