@@ -11,13 +11,8 @@ box::use(
 
 box::use(
   module = app/view/modules/plot,
+  test_cases = tests/test_cases/plot,
 )
-
-expect_plot <- function(x) {
-  x <- fromJSON(x)
-  expect_is(x, "list")
-  expect_setequal(names(x), c("x", "evals", "jsHooks", "deps"))
-}
 
 describe("plot", {
   it("should render a plot", {
@@ -30,14 +25,8 @@ describe("plot", {
       )
     )
 
-    testServer(module$server, args = args, {
-      # Act
-      session$setInputs(variable = "y")
-      plot <- output$plot
-
-      # Assert
-      expect_plot(plot)
-    })
+    # Act & Assert
+    test_cases$assert_render_plot(args)
   })
 
   it("should pass data to plotting function", {

@@ -1,0 +1,3 @@
+main:
+  script: tests/targets/_targets.R
+  store: tests/targets/_targets

@@ -5,11 +5,8 @@ box::use(
 
 box::use(
   module = app/view/modules/table,
+  test_cases = tests/test_cases/table,
 )
-
-expect_table <- function(x) {
-  expect_is(x, "character")
-}
 
 describe("table", {
   it("should render a table", {
@@ -22,12 +19,7 @@ describe("table", {
       )
     )
 
-    testServer(module$server, args = args, {
-      # Act
-      table <- output$table
-
-      # Assert
-      expect_table(table)
-    })
+    # Act & Assert
+    test_cases$assert_render_table(args)
   })
 })
